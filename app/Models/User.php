@@ -15,12 +15,10 @@ class User extends Authenticatable
         'role',
     ];
     public function tickets(){
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Question::class);
     }
-    public function messages(){
-        return $this->hasMany(Message::class);
-    }
-    public function categories(){
+   
+    public function category(){
         return $this->hasMany(Category::class);
     }
 }

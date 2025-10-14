@@ -48,17 +48,8 @@
                         <strong>Queue: {{ $ticket->queue_number }}</strong>
                     </div>
                     <div class="card-body">
-                        <p><strong>Main Issue:</strong> {{ $ticket->issue }}</p>
-                        <p><strong>Sub Issue:</strong> {{ $ticket->sub_issue }}</p>
-                        <p>
-                            <strong>Status:</strong>
-                            <span class="badge 
-                                @if($ticket->status === 'open') bg-success
-                                @elseif($ticket->status === 'pending') bg-warning text-dark
-                                @else bg-secondary @endif">
-                                {{ ucfirst($ticket->status) }}
-                            </span>
-                        </p>
+                        <p><strong>Main Issue:</strong> {{ $ticket->question }}</p>
+
                         <p class="text-muted mb-0">
                             <small><i class="bi bi-clock"></i> {{ $ticket->created_at->format('d M Y, H:i') }}</small>
                         </p>

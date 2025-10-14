@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ticket;
+use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 
 class ResponseController extends Controller
@@ -15,11 +15,11 @@ class ResponseController extends Controller
             'sub_issue'  => 'required|string',
         ]);
 
-        $todayCount = Ticket::whereDate('created_at', now()->toDateString())->count() + 1;
+        $todayCount = Question::whereDate('created_at', now()->toDateString())->count() + 1;
 
         $queueNumber = 'TCK-' . now()->format('Ymd') . '-' . str_pad($todayCount, 4, '0', STR_PAD_LEFT);
 
-        $ticket = Ticket::create([
+        $ticket = Question::create([
             'issue'        => $request->main_issue,
             'sub_issue'    => $request->sub_issue,
             'user_id'      => Auth::id(),
@@ -32,7 +32,7 @@ class ResponseController extends Controller
 
     public function show_Ticket()
     {
-        $tickets = Ticket::where('user_id', Auth::id())->get();
+        $tickets = Question::where('user_id', Auth::id())->get();
         return view('user.all_ticket', compact('tickets'));
     }
 }

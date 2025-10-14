@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('question', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('issue');
-            $table->text('sub_issue');
-            $table->enum('status', ['open', 'pending', 'closed'])->default('open');
+            $table->unsignedBigInteger('category_id');
+            $table->text('question');
+            $table->text('solution');
             $table->string('queue_number')->unique();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
         });
     }
 

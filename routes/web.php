@@ -40,8 +40,12 @@ Route::get('/logout', function () {
 Route::middleware(['role:customer'])->group(function () {
 
     // Dashboard User
-    Route::get('/home', [DashboardController::class, 'user_ticket_dashboard'])
-        ->name('home');
+    Route::get('/home', [DashboardController::class, 'categories'])->name('home');
+
+    Route::get('/faq/{id}', [DashboardController::class, 'showQuestion'])->name('faq.show');
+
+    Route::get('/category/{id}', [DashboardController::class, 'category_direct'])->name('category.show');
+
 
     // Customer Service Page
     Route::get('/customer-service', function () {
@@ -61,11 +65,6 @@ Route::middleware(['role:customer'])->group(function () {
 // 🧑‍💼 ADMIN ROUTES
 // ======================
 Route::middleware(['role:admin'])->group(function () {
-
-    // Dashboard Admin
-    // Route::get('/admin/home', function () {
-    //     return view('admin.home');
-    // })->name('admin.home');
 
     // View Tickets (Admin)
     Route::get('/admin/view-tickets', function () {
