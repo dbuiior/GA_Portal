@@ -8,7 +8,7 @@
 
     @if($category_by_home->question->isEmpty())
         <div class="alert alert-info text-center">
-            Belum ada pertanyaan untuk kategori ini.
+            Belum ada FAQ untuk kategori ini.
         </div>
     @else
         <div class="list-group">

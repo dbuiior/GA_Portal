@@ -19,28 +19,23 @@ use Illuminate\Support\Facades\Auth;
 // ======================
 
 // Halaman login
-Route::get('/', function () {
-    return view('user.login');
-})->name('login');
+Route::get('/', [DashboardController::class, 'categories'])->name('user.hub');
 
-// Proses login
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Logout
-Route::get('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/')->with('success', 'Logout berhasil!');
-})->name('logout');
+Route::get('/', [DashboardController::class, 'categories'])->name('home');
+
 
 // ======================
 // 👤 USER ROUTES
 // ======================
-Route::middleware(['role:customer'])->group(function () {
+Route::middleware(['auth','role:customer'])->group(function () {
 
     // Dashboard User
-    Route::get('/home', [DashboardController::class, 'categories'])->name('home');
+
 
     Route::get('/faq/{id}', [DashboardController::class, 'showQuestion'])->name('faq.show');
 
@@ -66,6 +61,9 @@ Route::middleware(['role:customer'])->group(function () {
 // ======================
 Route::middleware(['role:admin'])->group(function () {
 
+    Route::get('/admin/hub', function () {
+    return view('admin.hub');
+})->name('admin.hub');
     // View Tickets (Admin)
     Route::get('/admin/view-tickets', function () {
         return view('admin.view_tickets');

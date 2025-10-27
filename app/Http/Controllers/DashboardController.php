@@ -17,8 +17,8 @@ class DashboardController extends Controller
         $category = Category::all();
         $question = Question::all();
 
-
-        return view('user.home',compact('category','question'));
+        
+        return view('user.hub',compact('category','question'));
     }
 
     public function showQuestion($id)
